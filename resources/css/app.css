@@ -43,3 +43,58 @@
       background: #0a1f44;
       color: white;
     }
+
+    .tab-center-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.custom-pill-tabs {
+    display: inline-flex;
+    border: 1px solid #6f42c1;
+    border-radius: 30px;
+    padding: 4px;
+}
+
+.custom-pill-tabs .nav-link {
+    border: none;
+    border-radius: 25px;
+    padding: 8px 18px;
+    font-size: 12px;
+    color: #000;
+    background: transparent;
+}
+
+.custom-pill-tabs .nav-link.active {
+    background: #6f42c1;
+    color: #fff;
+}
+
+.custom-pill-tabs .nav-link:not(.active):hover {
+    color: #6f42c1;
+}
+.review-form-card {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff7f5;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.upload-box {
+    height: 90px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #777;
+}
+
+.star {
+    color: gold;
+    font-size: 22px;
+}

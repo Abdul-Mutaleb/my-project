@@ -21,10 +21,24 @@ class UserController extends Controller
         }
     }
 
-    public function details($id){
-        $product = Product::with('category')->findOrFail($id);
+    public function details($id)
+{
+    $product = Product::with('category')->findOrFail($id);
 
-        $discountedPrice = $product->product_price - ($product->product_price * $product->discount / 100); // 12% discount
-        return view('User.ProductDetails', compact('product', 'discountedPrice'));
-    }
+    $discountedPrice = $product->product_price -
+        ($product->product_price * $product->discount / 100);
+
+    // RELATED PRODUCTS
+    $relatedProducts = Product::where('category_id', $product->category_id)
+        ->where('id', '!=', $product->id)
+        ->latest()
+        ->take(6)
+        ->get();
+
+    return view(
+        'User.ProductDetails',
+        compact('product', 'discountedPrice', 'relatedProducts')
+    );
+}
+
 }

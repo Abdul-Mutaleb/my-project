@@ -5,13 +5,13 @@
     <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
 
-        @php $chunks = $products->chunk(4); @endphp
+        @php $chunks = $relatedProducts->chunk(4); @endphp
 
         @foreach($chunks as $chunkIndex => $chunk)
           <div class="carousel-item @if($chunkIndex == 0) active @endif">
             <div class="row g-4">
               @foreach($chunk as $product)
-                <div class="col-md-3">
+                <div class="col-6 col-sm-6 col-md-4 col-lg-3">
                   <div class="card border-0 shadow h-100">
                     <img src="{{ $product->product_image ? asset('storage/'.$product->product_image) : 'https://via.placeholder.com/300x200' }}" class="card-img-top" alt="{{ $product->product_name }}">
                     <div class="card-body">
