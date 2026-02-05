@@ -39,7 +39,7 @@
                         </div>
 
                         <!-- Product Info -->
-                        <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="col-sm-12 col-md-12 col-lg-6 mt-2">
                             <h4 class="fw-bold fs-5">{{ $product->product_name }}</h4>
                             <div class="mb-2 fs-10">
                                 ⭐⭐⭐⭐⭐ <strong>4.38</strong> <small>(21 reviews)</small>
@@ -84,7 +84,7 @@
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     <input type="hidden" name="quantity" id="cartQty" value="1">
-                                    <button type="submit" class="btn btn-dark px-4">ADD TO CART</button>
+                                    <button type="submit" class="btn btn-dark px-4 ">ADD TO CART</button>
                                 </form>
 
                                 <a href="#" class="btn btn-secondary px-4">BUY NOW</a>
@@ -98,7 +98,7 @@
             </div>
 
             <!-- RELATED PRODUCTS -->
-            <div class="col-lg-3">
+            <div class="col-lg-3 d-none d-lg-block">
                 <div class="mb-3">
                     <h3 class="fw-bold">Related Products</h3>
                 </div>
@@ -133,13 +133,13 @@
                                             <input type="hidden" name="product_id" value="{{ $rel->id }}">
                                             <input type="hidden" name="quantity" value="1">
                                             <button type="submit"
-                                                class="btn btn-sm btn-dark w-100 text-nowrap round-start"
+                                                class="btn btn-sm btn-dark w-100 text-nowrap rounded-start"
                                                 style="font-size: .75rem;">
                                                 Add to Cart
                                             </button>
                                         </form>
                                         <a href="{{ route('User.productDetails', $rel->id) }}"
-                                            class="btn btn-sm btn-secondary w-100 text-nowrap round-end"
+                                            class="btn btn-sm btn-secondary w-100 text-nowrap rounded-end"
                                             style="font-size: .75rem;">
                                             Buy Now
                                         </a>
@@ -217,29 +217,29 @@
                             </div>
 
                             <!-- Review Cards -->
-                            <div class="row g-3">
-                                <div class="col-md-3">
+                            <div class="row gap-1">
+                                <div class="col-md-3 bg-primary rounded-4">
                                     <div class="review-card">
                                         <strong>Tomosha Chakraborty</strong>
                                         <div class="stars">★★★★★</div>
                                         <p>Best acne & acne spot reducing combo</p>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 bg-primary rounded-4">
                                     <div class="review-card">
                                         <strong>Ashfia</strong>
                                         <div class="stars">★★★★★</div>
                                         <p>Budget friendly & effective combo</p>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 bg-primary rounded-4">
                                     <div class="review-card">
                                         <strong>Silvia</strong>
                                         <div class="stars">★★★★★</div>
                                         <p>Best acne controlling combo</p>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 bg-primary rounded-4">
                                     <div class="review-card">
                                         <strong>Rodeyla Binte Anwar</strong>
                                         <div class="stars">★★★★☆</div>
@@ -262,9 +262,9 @@
         <div class="mt-5">
             @include('user.products')
         </div>
-
+        
     </div> <!-- container end -->
-
+@include('user.footer')
 
     <script>
     const qtyInput = document.getElementById('qty');
