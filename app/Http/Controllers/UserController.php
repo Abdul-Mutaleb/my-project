@@ -9,36 +9,42 @@ use App\Models\Category;
 
 class UserController extends Controller
 {
+    // Home page
     public function index()
     {
         if (Auth::check()) {
-            // Login user → Admin dashboard
+            // Logged-in users → Admin dashboard
             return view('Admin.dashboard');
         } else {
-            // Guest → welcome page with products
+            // Guests → welcome page with all products
             $products = Product::with('category')->latest()->get();
             return view('welcome', compact('products'));
         }
     }
 
+    // Products listing page (optional)
+    public function products()
+    {
+        $products = Product::with('category')->latest()->get();
+        return view('User.Products', compact('products'));
+    }
+
+    // Product details page
     public function details($id)
-{
-    $product = Product::with('category')->findOrFail($id);
+    {
+        $product = Product::with('category')->findOrFail($id);
 
-    $discountedPrice = $product->product_price -
-        ($product->product_price * $product->discount / 100);
+        // Calculate discounted price
+        $discountedPrice = $product->product_price - ($product->product_price * $product->discount / 100);
 
-    // RELATED PRODUCTS
-    $relatedProducts = Product::where('category_id', $product->category_id)
-        ->where('id', '!=', $product->id)
-        ->latest()
-        ->take(6)
-        ->get();
+        // Related products (same category, excluding current)
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->latest()
+            ->take(6)
+            ->get();
 
-    return view(
-        'User.ProductDetails',
-        compact('product', 'discountedPrice', 'relatedProducts')
-    );
-}
-
+        // Pass variables to the ProductDetails view
+        return view('User.ProductDetails', compact('product', 'discountedPrice', 'relatedProducts'));
+    }
 }

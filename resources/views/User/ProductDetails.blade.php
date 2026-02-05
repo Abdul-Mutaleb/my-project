@@ -34,7 +34,7 @@
                                 </span>
 
                                 <img src="{{ asset('storage/'.$product->product_image) }}" class="w-100"
-                                    style="height: 350px; object-fit: cover;">
+                                    style="height: 400px; object-fit: cover;">
                             </div>
                         </div>
 
@@ -120,9 +120,9 @@
                                         <h6 class="mb-1 fw-semibold text-truncate" title="{{ $rel->product_name }}">
                                             {{ $rel->product_name }}</h6>
                                         <div class="related-price text-muted">
-                                            <span class="text-dark fw-bold">${{ $rel->discount_price }}</span>
+                                            <span class="text-dark fw-bold">${{ $rel->product_price }}</span>
                                             <small
-                                                class="text-decoration-line-through ms-1">${{ $rel->product_price }}</small>
+                                                class="text-decoration-line-through ms-1">${{ $discountedPrice }}</small>
                                         </div>
                                     </div>
 
@@ -260,11 +260,14 @@
 
         <!-- TRENDING PRODUCTS -->
         <div class="mt-5">
-            @include('user.products')
+            @include('User.Products', ['products' => $relatedProducts])
+
         </div>
-        
+
     </div> <!-- container end -->
-@include('user.footer')
+    <div>
+        @include('user.footer')
+    </div>
 
     <script>
     const qtyInput = document.getElementById('qty');
@@ -305,4 +308,5 @@
     }
     </script>
 </body>
+
 </html>
