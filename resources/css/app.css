@@ -1,0 +1,45 @@
+    :root {
+      --primary: #0d6efd;
+      --dark: #1a1a1a;
+    }
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://img.freepik.com/premium-photo/adventures-scenic-flights-travel-freedom-paradise-artistic-travel-illustration_1293074-203352.jpg?semt=ais_hybrid&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 70vh;
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+    }
+    .search-form .form-control {
+      height: 52px;
+      border-radius: 0;
+      border: none;
+    }
+    .search-form .btn {
+      height: 52px;
+      border-radius: 0;
+      padding: 0 30px;
+    }
+    .service-card {
+      transition: all 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+    .tour-card img {
+      height: 200px;
+      object-fit: cover;
+    }
+    .flight-card {
+      border-left: 4px solid var(--primary);
+    }
+    footer {
+      background: #0a1f44;
+      color: white;
+    }
