@@ -31,5 +31,6 @@ Route::get('/productList', [ProductController::class, 'show'])->name('Admin.prod
 Route::delete('/product/{id}', [ProductController::class, 'destroy'])
     ->name('Admin.productDelete');
 
-Route::get('/productDetails', [UserController::class, 'details'])->name('User.productDetails');
+Route::get('/productDetails/{id}', [UserController::class, 'details'])->name('User.productDetails');
+Route::post('/placeOrder', [OrderController::class, 'store'])->name('User.placeOrder');
 

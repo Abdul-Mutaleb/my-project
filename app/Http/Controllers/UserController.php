@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use App\Models\Category;
 
 class UserController extends Controller
 {
@@ -20,7 +21,10 @@ class UserController extends Controller
         }
     }
 
-    public function details(){
-        return view('User.productDetails');
+    public function details($id){
+        $product = Product::with('category')->findOrFail($id);
+
+        $discountedPrice = $product->product_price - ($product->product_price * $product->discount / 100); // 12% discount
+        return view('User.ProductDetails', compact('product', 'discountedPrice'));
     }
 }

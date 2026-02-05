@@ -20,7 +20,7 @@
                         {{ $product->category->category_name ?? 'N/A' }}
                       </p>
                       <p class="fw-bold">Starting from ${{ number_format($product->product_price, 2) }}</p>
-                      <a href="{{ Route('User.productDetails') }}" class="btn btn-sm btn-outline-primary mt-2">View Details</a>
+                      <a href="{{ Route('User.productDetails', $product->id) }}" class="btn btn-sm btn-outline-primary mt-2">View Details</a>
                     </div>
                   </div>
                 </div>
