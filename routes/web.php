@@ -26,4 +26,10 @@ Route::get('/addCategory', [CategoryController::class, 'index'])->name('Admin.ad
 Route::post('/addCategory', [CategoryController::class, 'store'])->name('Admin.addCategoryStore');
 Route::get('/addProduct', [ProductController::class, 'index'])->name('Admin.addProduct');
 Route::post('/addProduct', [ProductController::class, 'store'])->name('Admin.addProductStore');
-Route::get('/productList', [CategoryController::class, 'index'])->name('Admin.productList');
+Route::get('/productList', [ProductController::class, 'show'])->name('Admin.productList');
+// Delete route
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])
+    ->name('Admin.productDelete');
+
+Route::get('/productDetails', [UserController::class, 'details'])->name('User.productDetails');
+

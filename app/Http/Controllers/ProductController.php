@@ -5,6 +5,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -29,36 +30,38 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
  public function store(Request $request)
-    {
-        // Validate form
-        $request->validate([
-            'product_name'  => 'required|string|max:255|unique:products,product_name',
-            'category_id'   => 'required|exists:categories,id',
-            'product_price' => 'required|numeric',
-            'product_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
-        ]);
+{
+    // Validate form
+    $request->validate([
+        'product_name'  => 'required|string|max:255|unique:products,product_name',
+        'category_id'   => 'required|exists:categories,id',
+        'product_price' => 'required|numeric',
+        'product_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+    ]);
 
-        // Auto-generate product number
-        $product_number = 'PROD-' . strtoupper(Str::random(8));
+    // Auto-generate product number
+    $product_number = 'PROD-' . strtoupper(Str::random(8));
 
-        // Prepare product data
-        $data = [
-            'product_number' => $product_number,
-            'product_name'   => $request->product_name,
-            'category_id'    => $request->category_id,
-            'product_price'  => $request->product_price
-        ];
+    // Prepare product data
+    $data = [
+        'product_number' => $product_number,
+        'product_name'   => $request->product_name,
+        'category_id'    => $request->category_id,
+        'product_price'  => $request->product_price,
+    ];
 
-        // Handle image upload
-        if ($request->hasFile('product_image')) {
-            $data['product_image'] = $request->file('product_image')->store('products', 'public');
-        }
-
-        // Insert product
-        Product::create($data);
-
-        return redirect()->back()->with('success', 'Product added successfully!');
+    // Handle image upload
+    if ($request->hasFile('product_image')) {
+        $data['product_image'] = $request->file('product_image')
+                                         ->store('products', 'public');
     }
+
+    // Insert product
+    Product::create($data);
+
+    return redirect()->back()->with('success', 'Product added successfully!');
+}
+
 
 
     /**
@@ -66,7 +69,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $products = Product::with('category')->latest()->get();
+         return view('Admin.productList', compact('products'));
     }
 
     /**
@@ -88,8 +92,19 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
-    {
-        //
+    public function destroy($id)
+{
+    $product = Product::findOrFail($id);
+
+    // Delete image from storage
+    if ($product->product_image && Storage::disk('public')->exists($product->product_image)) {
+        Storage::disk('public')->delete($product->product_image);
     }
+
+    // Delete product
+    $product->delete();
+
+    return redirect()->back()->with('success', 'Product deleted successfully!');
+}
+
 }
