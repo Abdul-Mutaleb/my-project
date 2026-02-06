@@ -33,8 +33,8 @@
                                     12% <br> OFF
                                 </span>
 
-                                <img src="{{ asset('storage/'.$product->product_image) }}" class="w-100"
-                                    style="height: 400px; object-fit: cover;">
+                                <img src="{{ asset('images/'.$product->product_image) }}" class="w-100"
+                                    style="height: 400px; object-fit: cover;" alt="Product Image">
                             </div>
                         </div>
 
@@ -65,12 +65,18 @@
                             </table>
 
                             <div class="d-flex align-items-center gap-3 my-3">
-                                <span id="finalPrice" class="fs-5 fw-bold">
-                                    $ <span id="discountPrice">{{$product-> product_price  }}</span>
+                                <span id="finalPrice" class="fs-3 fw-bold">
+                                    ৳ <span id="discountPrice">{{ $discountedPrice }}</span>
                                 </span>
-                                <span id="originalPrice" class="text-muted text-decoration-line-through fs-10">
-                                    $ <span id="originalTotal">{{ $discountedPrice}}</span>
+
+                                <span id="originalPrice" class="text-muted text-decoration-line-through">
+                                    ৳ <span id="originalTotal">{{ $product->product_price }}</span>
                                 </span>
+
+                                <!-- hidden unit prices -->
+                                <input type="hidden" id="unitDiscountPrice" value="{{ $discountedPrice }}">
+                                <input type="hidden" id="unitOriginalPrice" value="{{ $product->product_price }}">
+
                                 <div class="input-group w-25 mb-3">
                                     <button class="btn bg-secondary" onclick="decreaseQty()">-</button>
                                     <input type="text" id="qty" class="form-control border-black text-center" value="1"
@@ -306,7 +312,7 @@
             updatePrices();
         }
     }
-    </script>
+</script>
 </body>
 
 </html>
