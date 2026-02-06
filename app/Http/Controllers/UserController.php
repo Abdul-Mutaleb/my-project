@@ -47,4 +47,15 @@ class UserController extends Controller
         // Pass variables to the ProductDetails view
         return view('User.ProductDetails', compact('product', 'discountedPrice', 'relatedProducts'));
     }
+
+    public function checkout($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $discount = $product->product_price * ($product->discount / 100);
+        $discountedPrice = $product->product_price - $discount;
+
+        return view('User.checkout', compact('product', 'discountedPrice', 'discount'));
+    }
+
 }

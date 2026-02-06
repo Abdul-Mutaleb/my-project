@@ -93,7 +93,10 @@
                                     <button type="submit" class="btn btn-dark px-4 ">ADD TO CART</button>
                                 </form>
 
-                                <a href="#" class="btn btn-secondary px-4">BUY NOW</a>
+                                <a href="{{ route('User.checkout', $product->id) }}" class="btn btn-secondary px-4">
+                                    BUY NOW
+                                </a>
+
                             </div>
                             <p class="mt-3">
                                 {{ $product->product_description }}
@@ -144,7 +147,7 @@
                                                 Add to Cart
                                             </button>
                                         </form>
-                                        <a href="{{ route('User.productDetails', $rel->id) }}"
+                                        <a href="{{ route('User.checkout', $rel->id) }}"
                                             class="btn btn-sm btn-secondary w-100 text-nowrap rounded-end"
                                             style="font-size: .75rem;">
                                             Buy Now

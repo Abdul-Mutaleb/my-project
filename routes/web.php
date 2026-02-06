@@ -33,4 +33,6 @@ Route::delete('/product/{id}', [ProductController::class, 'destroy'])
 
 Route::get('/productDetails/{id}', [UserController::class, 'details'])->name('User.productDetails');
 Route::post('/placeOrder', [OrderController::class, 'store'])->name('User.placeOrder');
+Route::get('/checkout/{id}', [UserController::class, 'checkout'])->name('User.checkout');
+
 
