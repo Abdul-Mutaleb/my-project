@@ -38,10 +38,6 @@
             <div class="col-lg-8">
                 <div class="card shadow-sm p-4">
                     <h5 class="fw-bold mb-3">Delivery Details</h5>
-                    <button class="btn btn-success mt-3 w-100" id="invoiceBtn">
-                        Generate Invoice PDF
-                    </button>
-
                     <form method="POST" action="{{ route('User.placeOrder') }}">
                         @csrf
 
@@ -84,52 +80,8 @@
             </div>
 
             <div class="col-lg-4">
-                <div class="card shadow-sm p-4">
-
-                    <h5 class="fw-bold mb-3">Cart Summary</h5>
-
-                    <table class="table table-sm">
-                        <tr>
-                            <td>Quantity</td>
-                            <td class="text-end">
-                                <input type="number" id="quantityInput" value="1" min="1" class="form-control text-end" style="width:80px;" onchange="updateQuantity(this.value)">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Product Price</td>
-                            <td class="text-end">৳ {{ $product->product_price }}</td>
-                        </tr>
-                        <tr>
-                            <td>Discount</td>
-                            <td class="text-end">৳ {{ $discount }}</td>
-                        </tr>
-                        <tr>
-                            <td>Coupon Discount</td>
-                            <td class="text-end">৳ 0</td>
-                        </tr>
-                        <tr>
-                            <td>Subtotal Price</td>
-                            <td class="text-end">৳ <span id="subtotal">{{ $discountedPrice }}</span></td>
-                        </tr>
-                        <tr>
-                            <td>Delivery Charge</td>
-                            <td class="text-end">৳ <span id="deliveryView">70</span></td>
-                        </tr>
-                        <tr class="fw-bold border-top">
-                            <td>Total</td>
-                            <td class="text-end">৳ <span id="totalView"></span></td>
-                        </tr>
-                    </table>
-
-                    <div class="mt-3">
-                        <label>Do you have a coupon code?</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control">
-                            <button class="btn btn-secondary">Apply</button>
-                        </div>
-                    </div>
-
-                </div>
+                @include('user.cartSummary')
+                
             </div>
 
         </div>
@@ -148,7 +100,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <img src="{{ asset('images/'.$product->product_image) }}" width="50">
+                            <img src="{{ asset('storage/'.$product->product_image) }}" width="50">
                             {{ $product->product_name }}
                         </td>
                         <td>৳ {{ $discountedPrice }}</td>
@@ -169,6 +121,7 @@
         function setDelivery(amount) {
             delivery = amount;
             document.getElementById('deliveryView').innerText = amount;
+            document.getElementById('deliveryCharge').value = amount;
             updateTotal();
         }
 
@@ -185,75 +138,16 @@
             let total = (basePrice * quantity) + delivery;
             document.getElementById('totalView').innerText = total;
             document.getElementById('btnTotal').innerText = total;
+            document.getElementById('btnTotal2').innerText = total;
             document.getElementById('finalTotal').value = total;
         }
 
         updateTotal();
     </script>
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-
-<script>
-const { jsPDF } = window.jspdf;
-
-document.getElementById('invoiceBtn').addEventListener('click', () => {
-    const doc = new jsPDF('p', 'pt', 'a4'); 
-    const pageWidth = doc.internal.pageSize.getWidth();
-
-    doc.setFontSize(18);
-    doc.text("Invoice", pageWidth / 2, 40, { align: "center" });
-    doc.setFontSize(12);
-    doc.line(40, 50, pageWidth - 40, 50);
-
-    const name = document.querySelector('input[name="name"]').value || 'N/A';
-    const phone = document.querySelector('input[name="phone"]').value || 'N/A';
-    const address = document.querySelector('textarea[name="address"]').value || 'N/A';
-
-    doc.text(`Customer Name: ${name}`, 40, 80);
-    doc.text(`Phone: ${phone}`, 40, 100);
-    doc.text(`Address: ${address}`, 40, 120);
-
-    const qty = parseInt(document.getElementById('quantityInput').value) || 1;
-    const productName = "{{ $product->product_name }}";
-    const unitPrice = {{ $discountedPrice }};
-    const subtotal = unitPrice * qty;
-    const deliveryCharge = delivery;
-    const total = subtotal + deliveryCharge;
-
-    const startY = 150;
-    doc.setFillColor(230, 230, 230);
-    doc.rect(40, startY, pageWidth - 80, 20, 'F'); 
-    doc.setTextColor(0);
-    doc.text("Product", 50, startY + 14);
-    doc.text("Unit Price", 220, startY + 14);
-    doc.text("Quantity", 330, startY + 14);
-    doc.text("Subtotal", 430, startY + 14);
-
-    const rowY = startY + 20;
-    doc.rect(40, rowY, pageWidth - 80, 20);
-    doc.text(productName, 50, rowY + 14);
-    doc.text(`Tk ${unitPrice}`, 220, rowY + 14);
-    doc.text(`${qty}`, 330, rowY + 14);
-    doc.text(`Tk ${subtotal}`, 430, rowY + 14);
-
-    const summaryY = rowY + 40;
-    doc.text(`Delivery: Tk ${deliveryCharge}`, 350, summaryY);
-    doc.setFontSize(14);
-    doc.text(`Total: Tk ${total}`, 350, summaryY + 20);
-
-    doc.setFontSize(12);
-    doc.setTextColor(100);
-    doc.text("Thank you for shopping with us!", pageWidth / 2, 780, { align: "center" });
-
-    doc.save(`Invoice_${productName}.pdf`);
-});
-</script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 
 </body>
-
 </html>

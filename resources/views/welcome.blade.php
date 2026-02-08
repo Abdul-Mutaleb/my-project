@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,32 +19,31 @@
 <body>
     <!-- ================= HERO SECTION ================= -->
 
-    @include('user.header')
-    @include('user.mobile_header')
+    @include('User.header')
+    @include('User.mobile_header')
 
     <main>
         <!-- ================= OUR SERVICES ================= -->
-        @include('user.our_services')
+        @include('User.our_services')
 
         <!-- ================= TRENDING TOUR PACKAGES ================= -->
 
-        @include('user.products')
+        @include('User.products')
         <!-- ================= LATEST FLIGHT DEALS ================= -->
-        @include('user.lates_products')
+        @include('User.lates_products')
 
         <!-- ================= TRUST FEATURES ================= -->
-        @include('user.suport')
+        @include('User.suport')
 
     </main>
 
 
     <!-- ================= FOOTER ================= -->
-    @include('user.footer')
+    @include('User.footer')
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 </body>
-
 </html>

@@ -32,7 +32,10 @@ Route::delete('/product/{id}', [ProductController::class, 'destroy'])
     ->name('Admin.productDelete');
 
 Route::get('/productDetails/{id}', [UserController::class, 'details'])->name('User.productDetails');
-Route::post('/placeOrder', [OrderController::class, 'store'])->name('User.placeOrder');
 Route::get('/checkout/{id}', [UserController::class, 'checkout'])->name('User.checkout');
+// routes/web.php
+Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('User.placeOrder');
+Route::get('/orderSuccess/{orderId}', [OrderController::class, 'orderSuccess'])
+    ->name('User.orderSuccess');
 
 

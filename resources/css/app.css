@@ -98,3 +98,18 @@
     color: gold;
     font-size: 22px;
 }
+
+@media (max-width: 991px) {
+    .navbar form[role="search"] {
+        order: 3;
+    }
+
+    .navbar-nav .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-nav li {
+        margin-bottom: 8px;
+    }
+}

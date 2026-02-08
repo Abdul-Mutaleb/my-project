@@ -12,14 +12,14 @@ class UserController extends Controller
     // Home page
     public function index()
     {
-        if (Auth::check()) {
-            // Logged-in users → Admin dashboard
+        $user = Auth::user(); // User model or null
+
+        if ($user && $user->role === 'admin') {
             return view('Admin.dashboard');
-        } else {
-            // Guests → welcome page with all products
-            $products = Product::with('category')->latest()->get();
-            return view('welcome', compact('products'));
         }
+
+        $products = Product::with('category')->latest()->get();
+        return view('welcome', compact('products'));
     }
 
     // Products listing page (optional)
